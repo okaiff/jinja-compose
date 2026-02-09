@@ -6,9 +6,6 @@ build-backend = "setuptools.build_meta"
 name = "jinja-docker-compose"
 version = "2.0.6"
 description = "Enables jinja like preposessing of docker-compose files."
-homepage = "https://github.com/okaiff/jinja-compose/blob/master/README.md"
-repository = "https://github.com/okaiff/jinja-compose"
-authors = ["OKaif"]
 license = "MIT"
 readme = "README.md"
 
