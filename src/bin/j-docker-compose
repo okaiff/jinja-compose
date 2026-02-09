@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -euo pipefail
 
 # ---- env for templates ----
@@ -76,7 +75,13 @@ if [[ -z "$output_file" ]]; then
   output_file="build/$base"
 fi
 
-# ---- render via j2(j2cli) ----
+if command -v podman-compose &>/dev/null; then
+  export DOCKER_IS_PODMAN=1
+else
+  export DOCKER_IS_PODMAN=0
+fi
+
+# ---- render via j2-cli ----
 if ! command -v j2 >/dev/null 2>&1; then
   echo "ERROR: 'j2' (j2cli) is not installed or not in PATH" >&2
   exit 127
@@ -93,4 +98,9 @@ else
 fi
 
 # ---- run docker compose using rendered file ----
-exec docker compose -f "$output_file" "${compose_args[@]}"
+# use podman-compose if it is available (for solve some CDI options compatibility)
+if (( DOCKER_IS_PODMAN )); then
+  exec podman-compose -f "$output_file" "${compose_args[@]}"
+else
+  exec docker-compose -f "$output_file" "${compose_args[@]}"
+fi
