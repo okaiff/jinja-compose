@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "jinja-docker-compose"
-version = "2.0.6"
+version = "2.0.7"
 description = "Enables jinja like preposessing of docker-compose files."
 license = "MIT"
 readme = "README.md"
